@@ -10,6 +10,8 @@ public class Pocket {
     @Id @GeneratedValue
     private Long id;
 
+    @GeneratedValue
+    private Long position;
     private String title;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

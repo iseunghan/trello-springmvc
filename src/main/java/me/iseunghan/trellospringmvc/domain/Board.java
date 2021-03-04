@@ -6,17 +6,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Random;
 
 @Entity
 public class Board {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @GeneratedValue
+    private Long position;
     private String title;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private BoardColor boardColor;
 
     @OneToMany(mappedBy = "board")
     private List<Pocket> pockets;
@@ -59,5 +62,21 @@ public class Board {
 
     public void setPockets(List<Pocket> pockets) {
         this.pockets = pockets;
+    }
+
+    public Long getPosition() {
+        return position;
+    }
+
+    public void setPosition(Long position) {
+        this.position = position;
+    }
+
+    public BoardColor getBoardColor() {
+        return boardColor;
+    }
+
+    public void setBoardColor(BoardColor boardColor) {
+        this.boardColor = boardColor;
     }
 }
