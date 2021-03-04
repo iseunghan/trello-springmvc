@@ -1,9 +1,6 @@
 package me.iseunghan.trellospringmvc.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,10 +11,11 @@ public class Board {
     @GeneratedValue
     private Long id;
 
-    private Long position;
+    private int position;
     private String title;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    @Enumerated(EnumType.STRING)
     private BoardColor boardColor;
 
     @OneToMany(mappedBy = "board")
@@ -63,11 +61,11 @@ public class Board {
         this.pockets = pockets;
     }
 
-    public Long getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(Long position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 

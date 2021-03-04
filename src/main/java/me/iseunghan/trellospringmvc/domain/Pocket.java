@@ -10,7 +10,7 @@ public class Pocket {
     @Id @GeneratedValue
     private Long id;
 
-    private Long position;
+    private int position;
     private String title;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -60,5 +60,21 @@ public class Pocket {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }

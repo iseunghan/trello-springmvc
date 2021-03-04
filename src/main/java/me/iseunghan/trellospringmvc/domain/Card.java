@@ -9,7 +9,7 @@ public class Card {
     @Id @GeneratedValue
     private Long id;
 
-    private Long position;
+    private int position;
     private String title;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -65,5 +65,13 @@ public class Card {
 
     public void setPocket(Pocket pocket) {
         this.pocket = pocket;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }
