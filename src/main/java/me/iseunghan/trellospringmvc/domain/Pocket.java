@@ -2,6 +2,7 @@ package me.iseunghan.trellospringmvc.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,8 +20,8 @@ public class Pocket {
     @JoinColumn(name = "BOARD_ID")  // 외래 키 매핑 전략으로 찾기 때문에 생략 가능.
     private Board board;
 
-    @OneToMany(mappedBy = "pocket")
-    private List<Card> cards;
+    @OneToMany(mappedBy = "pocket", fetch = FetchType.EAGER)
+    private List<Card> cards = new ArrayList<>();
 
     public Long getId() {
         return id;

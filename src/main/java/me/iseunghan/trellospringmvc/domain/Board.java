@@ -2,6 +2,7 @@ package me.iseunghan.trellospringmvc.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,8 +19,8 @@ public class Board {
     @Enumerated(EnumType.STRING)
     private BoardColor boardColor;
 
-    @OneToMany(mappedBy = "board")
-    private List<Pocket> pockets;
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    private List<Pocket> pockets = new ArrayList<>();
 
     public Long getId() {
         return id;
