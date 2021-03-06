@@ -19,6 +19,15 @@ public class Card {
     @JoinColumn(name = "POCKET_ID")
     private Pocket pocket;
 
+    /**
+     * 연관관계 편의메소드 정의(양방향 저장)
+     * @param pocket
+     */
+    public void updatePocket(Pocket pocket) {
+        this.pocket = pocket;
+        pocket.getCards().add(this);
+    }
+
     public Long getId() {
         return id;
     }

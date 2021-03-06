@@ -23,6 +23,15 @@ public class Pocket {
     @OneToMany(mappedBy = "pocket", fetch = FetchType.EAGER)
     private List<Card> cards = new ArrayList<>();
 
+    /**
+     * 연관관계 편의메소드 정의(양방향 저장)
+     * @param board
+     */
+    public void updateBoard(Board board) {
+        this.board = board;
+        board.getPockets().add(this);
+    }
+
     public Long getId() {
         return id;
     }
