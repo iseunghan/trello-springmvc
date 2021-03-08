@@ -45,11 +45,11 @@ public class PocketService {
     }
 
     /**
-     * 모든 포켓을 조회하는 메소드
+     * 해당 보드의 모든 포켓을 조회하는 메소드
      * @return List<Pocket>
      */
-    public List<Pocket> findAll() {
-        return pocketRepository.findAll();
+    public List<Pocket> findAll(Long boardId) {
+        return pocketRepository.findPocketsByBoard_Id(boardId);
     }
 
 
