@@ -1,7 +1,5 @@
 package me.iseunghan.trellospringmvc.domain;
 
-import java.time.LocalDateTime;
-
 public class BoardDto {
 
     private String title;
@@ -28,7 +26,20 @@ public class BoardDto {
         return boardColor;
     }
 
-    public void setBoardColor(BoardColor boardColor) {
-        this.boardColor = boardColor;
+    public void setBoardColor(String boardColor) {
+        switch (boardColor) {
+            case "BLUE":
+                this.boardColor = BoardColor.BLUE;
+                break;
+            case "RED":
+                this.boardColor =  BoardColor.RED;
+                break;
+            case "GREEN":
+                this.boardColor =  BoardColor.GREEN;
+                break;
+            default:
+                this.boardColor =  BoardColor.YELLOW;
+                break;
+        }
     }
 }
