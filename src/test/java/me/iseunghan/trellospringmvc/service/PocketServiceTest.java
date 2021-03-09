@@ -1,10 +1,7 @@
 package me.iseunghan.trellospringmvc.service;
 
 import javassist.NotFoundException;
-import me.iseunghan.trellospringmvc.domain.Board;
-import me.iseunghan.trellospringmvc.domain.BoardColor;
-import me.iseunghan.trellospringmvc.domain.Pocket;
-import me.iseunghan.trellospringmvc.domain.PocketDto;
+import me.iseunghan.trellospringmvc.domain.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,14 +89,15 @@ class PocketServiceTest {
         pocket.setTitle("pocket1");
         Long id = pocketService.addPocket(testBoard.getId(), pocket);
 
-        Board newBoard = new Board();
+        BoardDto newBoard = new BoardDto();
         newBoard.setTitle("new board title");
-        boardService.addBoard(newBoard);
+        newBoard.setBoardColor("RED");
+        Long boardId = boardService.addBoard(newBoard);
 
         PocketDto pocketDto = new PocketDto();
         pocketDto.setTitle("edited title");
         pocketDto.setPosition(100);
-        pocketDto.setBoardId(newBoard.getId());
+        pocketDto.setBoardId(boardId);
 
         // when
         Pocket editedPocket = pocketService.updatePocket(id, pocketDto);
@@ -134,9 +132,9 @@ class PocketServiceTest {
      * test용 보드 생성 메소드
      */
     public Board generateBoard() throws NotFoundException {
-        Board testBoard = new Board();
+        BoardDto testBoard = new BoardDto();
         testBoard.setTitle("test board title");
-        testBoard.setBoardColor(BoardColor.GREEN);
+        testBoard.setBoardColor("GREEN");
         testBoard.setPosition(0);
 
         Long id = boardService.addBoard(testBoard);
