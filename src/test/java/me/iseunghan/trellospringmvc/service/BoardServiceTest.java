@@ -4,13 +4,11 @@ import javassist.NotFoundException;
 import me.iseunghan.trellospringmvc.domain.Board;
 import me.iseunghan.trellospringmvc.domain.BoardColor;
 import me.iseunghan.trellospringmvc.domain.BoardDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,12 +23,12 @@ class BoardServiceTest {
     @DisplayName("하나의 보드 추가")
     void addBoard() throws NotFoundException {
         // given
-        Board board = new Board();
-        board.setTitle("test board");
-        board.setBoardColor(BoardColor.BLUE);
+        BoardDto boardDto = new BoardDto();
+        boardDto.setTitle("test board");
+        boardDto.setBoardColor("BLUE");
 
         // when
-        Long id = boardService.addBoard(board);
+        Long id = boardService.addBoard(boardDto);
 
         // then
         Board findBoard = boardService.findOne(id);
@@ -43,11 +41,11 @@ class BoardServiceTest {
     @DisplayName("하나의 보드 추가 타이틀 비었을 때")
     void addBoardException() {
         // given
-        Board board = new Board();
+        BoardDto boardDto = new BoardDto();
 
         // when
         IllegalStateException ise = assertThrows(IllegalStateException.class, () -> {
-            boardService.addBoard(board);
+            boardService.addBoard(boardDto);
         });
 
         // then
@@ -80,16 +78,18 @@ class BoardServiceTest {
     @DisplayName("하나의 보드 조회")
     void findOne() throws NotFoundException {
         // given
-        Board board = new Board();
-        board.setTitle("test board");
-        Long id = boardService.addBoard(board);
+        BoardDto boardDto = new BoardDto();
+        boardDto.setTitle("test Title");
+        boardDto.setBoardColor("BLUE");
+        Long id = boardService.addBoard(boardDto);
 
         // when
         Board findBoard = boardService.findOne(id);
 
         // then
-        assertEquals(board.getId(), findBoard.getId());
-        assertEquals(board.getTitle(), findBoard.getTitle());
+        assertEquals(id, findBoard.getId());
+        assertEquals(boardDto.getTitle(), findBoard.getTitle());
+        assertEquals(boardDto.getBoardColor(), findBoard.getBoardColor());
     }
 
     @Test
@@ -110,32 +110,33 @@ class BoardServiceTest {
     @DisplayName("보드 수정")
     void updateBoard() throws NotFoundException {
         // given
-        Board board = new Board();
-        board.setTitle("test board");
-        board.setBoardColor(BoardColor.BLUE);
-        boardService.addBoard(board);
-
         BoardDto boardDto = new BoardDto();
-        boardDto.setTitle("edited board");
-        boardDto.setBoardColor(BoardColor.RED);
-        boardDto.setPosition(10);
+        boardDto.setTitle("test board");
+        boardDto.setBoardColor("BLUE");
+        Long id = boardService.addBoard(boardDto);
+
+        BoardDto editBoard = new BoardDto();
+        editBoard.setTitle("edited board");
+        editBoard.setBoardColor("red");
+        editBoard.setPosition(10);
 
         // when
-        Board updateBoard = boardService.updateBoard(board.getId(), boardDto);
+        Board updateBoard = boardService.updateBoard(id, editBoard);
 
         // then
-        assertEquals(boardDto.getTitle(), updateBoard.getTitle());
-        assertEquals(boardDto.getBoardColor(), updateBoard.getBoardColor());
-        assertEquals(boardDto.getPosition(), updateBoard.getPosition());
+        assertEquals(editBoard.getTitle(), updateBoard.getTitle());
+        assertEquals(editBoard.getBoardColor(), updateBoard.getBoardColor());
+        assertEquals(editBoard.getPosition(), updateBoard.getPosition());
     }
 
     @Test
     @DisplayName("보드 삭제")
     void deleteBoard() throws NotFoundException {
         // given
-        Board board = new Board();
-        board.setTitle("test board");
-        Long id = boardService.addBoard(board);
+        BoardDto boardDto = new BoardDto();
+        boardDto.setTitle("test board");
+        boardDto.setBoardColor("blue");
+        Long id = boardService.addBoard(boardDto);
 
         // when
         boolean result = boardService.deleteBoard(id);
@@ -160,13 +161,13 @@ class BoardServiceTest {
      * @param n
      */
     public void generateBoard(int n) {
-        Board board;
+        BoardDto boardDto;
         for (int i = 1; i <= n; i++) {
-            board = new Board();
-            board.setTitle("test board" + i);
-            board.setBoardColor(BoardColor.BLUE);
-            board.setPosition(i);
-            boardService.addBoard(board);
+            boardDto = new BoardDto();
+            boardDto.setTitle("test board" + i);
+            boardDto.setBoardColor("blue");
+            boardDto.setPosition(i);
+            boardService.addBoard(boardDto);
         }
     }
 }
