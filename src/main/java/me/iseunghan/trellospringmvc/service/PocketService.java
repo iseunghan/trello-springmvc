@@ -83,8 +83,8 @@ public class PocketService {
 
         if (pocketDto.getBoardId() != null) {
             Board board = boardRepository.findById(pocketDto.getBoardId()).get();
-            pocket.updateBoard(board);  // 편의 메소드
-            boardRepository.save(board);
+            pocket.updateBoard(board);    // 편의 메소드
+        //  boardRepository.save(board);    저장할 필요 없음!! (왜? 연관관계 주인이 아니기 때문에)
         }
 
         if (pocketDto.getPosition() > 0) {
@@ -94,9 +94,9 @@ public class PocketService {
         if (pocketDto.getCardId() != null) {
             Card card = cardRepository.findById(pocketDto.getCardId()).get();
             card.updatePocket(pocket);  // 편의 메소드
-            cardRepository.save(card);
+//            cardRepository.save(card);    저장할 필요 없다.
         }
-
+        pocket.setUpdatedAt(LocalDateTime.now());
         return pocketRepository.save(pocket);
     }
 
