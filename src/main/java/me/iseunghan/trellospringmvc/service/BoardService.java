@@ -63,7 +63,7 @@ public class BoardService {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("id: " + id + "는 존재하지 않는 보드입니다."));
 
-        if (boardDto.getTitle() != null) {
+        if (Strings.isNotBlank(boardDto.getTitle())) {
             board.setTitle(boardDto.getTitle());
         }
 
@@ -85,6 +85,7 @@ public class BoardService {
     public boolean deleteBoard(Long id) throws NotFoundException {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("id: " + id + "는 존재하지 않는 보드입니다."));
+        boardRepository.delete(board);
         return true;
     }
 }
