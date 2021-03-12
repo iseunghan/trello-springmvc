@@ -29,14 +29,17 @@ public class PocketService {
 
     /**
      * 포켓을 추가하는 메소드
-     * @param pocket
+     * @param pocketDto
      * @return 포켓의 id값
      */
-    public Long addPocket(Long boardId, Pocket pocket) {
-        if (Strings.isBlank(pocket.getTitle())) {
+    public Long addPocket(Long boardId, PocketDto pocketDto) {
+        if (Strings.isBlank(pocketDto.getTitle())) {
             throw new IllegalStateException("공백을 입력할 수 없습니다.");
         }
         Board board = boardRepository.findById(boardId).get();
+        Pocket pocket = new Pocket();
+        pocket.setTitle(pocketDto.getTitle());
+        pocket.setPosition(pocketDto.getPosition());
         pocket.setCreatedAt(LocalDateTime.now());
         pocket.setUpdatedAt(pocket.getCreatedAt());
         pocket.updateBoard(board);
