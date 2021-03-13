@@ -24,17 +24,17 @@ class PocketServiceTest {
     void addPocket() throws NotFoundException {
         // given
         Board testBoard = generateBoard();
-        Pocket pocket = new Pocket();
-        pocket.setTitle("new Pocket!");
+        PocketDto pocketDto = new PocketDto();
+        pocketDto.setTitle("new Pocket!");
 
         // when
-        Long id = pocketService.addPocket(testBoard.getId(), pocket);
+        Long id = pocketService.addPocket(testBoard.getId(), pocketDto);
 
         // then
         Pocket savedPocket = pocketService.findOne(id);
         Board savedBoard = savedPocket.getBoard();
         assertEquals(testBoard.getTitle(), savedBoard.getTitle());
-        assertEquals(pocket.getTitle(), savedPocket.getTitle());
+        assertEquals(pocketDto.getTitle(), savedPocket.getTitle());
     }
 
     @Test
@@ -68,9 +68,9 @@ class PocketServiceTest {
     void findOne() throws NotFoundException {
         // given
         Board testBoard = generateBoard();
-        Pocket pocket = new Pocket();
-        pocket.setTitle("pocket1");
-        Long id = pocketService.addPocket(testBoard.getId(), pocket);
+        PocketDto pocketDto = new PocketDto();
+        pocketDto.setTitle("pocket1");
+        Long id = pocketService.addPocket(testBoard.getId(), pocketDto);
 
         // when
         Pocket savedPocket = pocketService.findOne(id);
@@ -85,22 +85,22 @@ class PocketServiceTest {
     void updatePocket() throws NotFoundException {
         // given
         Board testBoard = generateBoard();
-        Pocket pocket = new Pocket();
-        pocket.setTitle("pocket1");
-        Long id = pocketService.addPocket(testBoard.getId(), pocket);
+        PocketDto pocketDto1 = new PocketDto();
+        pocketDto1.setTitle("pocket1");
+        Long id = pocketService.addPocket(testBoard.getId(), pocketDto1);
 
         BoardDto newBoard = new BoardDto();
         newBoard.setTitle("new board title");
         newBoard.setBoardColor("RED");
         Long boardId = boardService.addBoard(newBoard);
 
-        PocketDto pocketDto = new PocketDto();
-        pocketDto.setTitle("edited title");
-        pocketDto.setPosition(100);
-        pocketDto.setBoardId(boardId);
+        PocketDto pocketDto2 = new PocketDto();
+        pocketDto2.setTitle("edited title");
+        pocketDto2.setPosition(100);
+        pocketDto2.setBoardId(boardId);
 
         // when
-        Pocket editedPocket = pocketService.updatePocket(id, pocketDto);
+        Pocket editedPocket = pocketService.updatePocket(id, pocketDto2);
 
         // then
         assertEquals("new board title", editedPocket.getBoard().getTitle());
@@ -113,18 +113,18 @@ class PocketServiceTest {
     void deletePocket() throws NotFoundException {
         // given
         Board testBoard = generateBoard();
-        Pocket pocket = new Pocket();
-        pocket.setTitle("pocket1");
-        Long id = pocketService.addPocket(testBoard.getId(), pocket);
+        PocketDto pocketDto = new PocketDto();
+        pocketDto.setTitle("pocket1");
+        Long id = pocketService.addPocket(testBoard.getId(), pocketDto);
 
         // when
         boolean result = pocketService.deletePocket(testBoard.getId(), id);
 
         // then
         NotFoundException nfe = assertThrows(NotFoundException.class, () -> {
-            pocketService.findOne(pocket.getId());
+            pocketService.findOne(id);
         });
-        assertEquals("id: " + pocket.getId() + "은 존재하지 않는 포켓입니다.", nfe.getMessage());
+        assertEquals("id: " + id + "은 존재하지 않는 포켓입니다.", nfe.getMessage());
         assertTrue(result);
     }
 
@@ -143,12 +143,12 @@ class PocketServiceTest {
     }
 
     public void generatePocket(Board board, int size) {
-        Pocket pocket;
+        PocketDto pocketDto;
 
         for (int i = 0; i < size; i++) {
-            pocket = new Pocket();
-            pocket.setTitle("pocket title" + i);
-            pocketService.addPocket(board.getId(), pocket);
+            pocketDto = new PocketDto();
+            pocketDto.setTitle("pocket title" + i);
+            pocketService.addPocket(board.getId(), pocketDto);
         }
     }
 }
