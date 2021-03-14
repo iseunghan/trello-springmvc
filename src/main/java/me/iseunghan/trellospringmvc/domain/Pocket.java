@@ -1,5 +1,8 @@
 package me.iseunghan.trellospringmvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,10 +19,12 @@ public class Pocket {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "BOARD_ID")  // 외래 키 매핑 전략으로 찾기 때문에 생략 가능.
     private Board board;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "pocket", fetch = FetchType.EAGER)
     private List<Card> cards = new ArrayList<>();
 

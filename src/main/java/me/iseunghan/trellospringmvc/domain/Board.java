@@ -1,5 +1,7 @@
 package me.iseunghan.trellospringmvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class Board {
     @Enumerated(EnumType.STRING)
     private BoardColor boardColor;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
     private List<Pocket> pockets = new ArrayList<>();
 
