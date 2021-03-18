@@ -1,6 +1,7 @@
 package me.iseunghan.trellospringmvc.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,8 +18,7 @@ public class Card {
     private LocalDateTime updatedAt;
     private String description;
 
-    @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POCKET_ID")
     private Pocket pocket;
 

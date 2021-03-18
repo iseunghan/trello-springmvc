@@ -21,8 +21,7 @@ public class Board {
     @Enumerated(EnumType.STRING)
     private BoardColor boardColor;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
     private List<Pocket> pockets = new ArrayList<>();
 
     public Long getId() {
