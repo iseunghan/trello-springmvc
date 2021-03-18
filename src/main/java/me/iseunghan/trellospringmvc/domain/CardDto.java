@@ -1,11 +1,16 @@
 package me.iseunghan.trellospringmvc.domain;
 
+import java.time.LocalDateTime;
+
 public class CardDto {
 
+    private Long cardId;
     private String title;
     private String description;
-    private Long pocketId;
     private int position;
+    private Long pocketId;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public String getTitle() {
         return title;
@@ -37,5 +42,29 @@ public class CardDto {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 }
