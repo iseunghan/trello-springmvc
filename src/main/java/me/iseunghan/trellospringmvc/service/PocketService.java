@@ -2,7 +2,6 @@ package me.iseunghan.trellospringmvc.service;
 
 import javassist.NotFoundException;
 import me.iseunghan.trellospringmvc.domain.Board;
-import me.iseunghan.trellospringmvc.domain.Card;
 import me.iseunghan.trellospringmvc.domain.Pocket;
 import me.iseunghan.trellospringmvc.domain.PocketDto;
 import me.iseunghan.trellospringmvc.repository.BoardRepository;
@@ -86,19 +85,13 @@ public class PocketService {
 
         if (pocketDto.getBoardId() != null) {
             Board board = boardRepository.findById(pocketDto.getBoardId()).get();
-            pocket.updateBoard(board);    // 편의 메소드
-        //  boardRepository.save(board);    저장할 필요 없음!! (왜? 연관관계 주인이 아니기 때문에)
+            pocket.updateBoard(board);
         }
 
         if (pocketDto.getPosition() > 0) {
             pocket.setPosition(pocketDto.getPosition());
         }
 
-        if (pocketDto.getCardId() != null) {
-            Card card = cardRepository.findById(pocketDto.getCardId()).get();
-            card.updatePocket(pocket);  // 편의 메소드
-//            cardRepository.save(card);    저장할 필요 없다.
-        }
         pocket.setUpdatedAt(LocalDateTime.now());
         return pocketRepository.save(pocket);
     }
