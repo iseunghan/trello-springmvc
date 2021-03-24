@@ -24,7 +24,7 @@ public class Pocket {
     @JoinColumn(name = "BOARD_ID")  // 외래 키 매핑 전략으로 찾기 때문에 생략 가능.
     private Board board;
 
-    @OneToMany(mappedBy = "pocket", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pocket", fetch = FetchType.EAGER)
     private List<Card> cards = new ArrayList<>();
 
     /**
