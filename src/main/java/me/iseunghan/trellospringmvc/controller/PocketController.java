@@ -28,8 +28,11 @@ public class PocketController {
     @GetMapping
     public ResponseEntity list(@PathVariable Long boardId) {
         List<Pocket> pockets = pocketService.findAll(boardId);
-        CollectionModel<PocketResource> pocketResources = pocketResource.toCollectionModel(pockets);
-        return ResponseEntity.ok(pocketResources);
+        if (!pockets.isEmpty()){
+            CollectionModel<PocketResource> pocketResources = pocketResource.toCollectionModel(pockets);
+            return ResponseEntity.ok(pocketResources);
+        }
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/{pocketId}")
