@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trello By iseunghan</title>
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/css/trello-style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <img src="/img/trello-logo.jpg" class="rounded mx-auto d-block"
+             style="height: 160px; width: 174px; margin-top: 40px">
+    </div>
+
+    <br>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 justify-content-between">
+        <div>
+            <svg style="margin-bottom: 10px" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                 fill="currentColor" class="bi bi-grid-1x2-fill" viewBox="0 0 16 16">
+                <path d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z"/>
+            </svg>
+            <span style="font-size: 32px">boards</span>
+        </div>
+    </div>
+    <hr>
+    <div class="board-row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="main-board-lists">
+
+        <div class="col-md-2" id="div-add-btn-board">
+            <button class="btn btn-primary align-self-center" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 60px">
+                + Add a board
+            </button>
+        </div>
+    </div>
+
+    <!-- Add Board Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add a Board</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="aria-board-title">Board Title</span>
+                                <input type="text" class="form-control" placeholder="insert board title.." aria-label="Pocket Title" aria-describedby="aria-board-title" id="input-board-title" autofocus>
+                            </div>
+                            <div class="row">
+                                <label for="btn-radio-group" class="form-label">COLOR</label>
+                                <div class="btn-group" id="btn-radio-group" role="group"
+                                     aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" value="BLUE" name="boardColor"
+                                           id="btn-radio-Blue" autocomplete="off" checked>
+                                    <label class="btn btn-outline-primary" for="btn-radio-Blue">BLUE</label>
+
+                                    <input type="radio" class="btn-check" value="RED" name="boardColor"
+                                           id="btn-radio-red" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="btn-radio-red">RED</label>
+
+                                    <input type="radio" class="btn-check" value="GREEN" name="boardColor"
+                                           id="btn-radio-green" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="btn-radio-green">GREEN</label>
+
+                                    <input type="radio" class="btn-check" value="YELLOW" name="boardColor"
+                                           id="btn-radio-yellow" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="btn-radio-yellow">YELLOW</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="close-btn-board-modal"
+                                data-bs-dismiss="modal">Close
+                        </button>
+                        <button type="button" class="btn btn-primary" id="save-btn-board-title">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Add Board Modal -->
+
+    <!-- Update Board Modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Update Board</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="input-boardDto-title" class="form-label">TITLE</label>
+                                <input type="text" id="input-boardDto-title" placeholder="insert board title.."
+                                       autofocus>
+                            </div>
+                            <div class="row">
+                                <label for="btn-radio-group-update" class="form-label">COLOR</label>
+                                <div class="btn-group" id="btn-radio-group-update" role="group"
+                                     aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" value="BLUE" name="boardColor1"
+                                           id="btn-radio-Blue-update" autocomplete="off" checked>
+                                    <label class="btn btn-outline-primary" for="btn-radio-Blue-update">BLUE</label>
+
+                                    <input type="radio" class="btn-check" value="RED" name="boardColor1"
+                                           id="btn-radio-red-update" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="btn-radio-red-update">RED</label>
+
+                                    <input type="radio" class="btn-check" value="GREEN" name="boardColor1"
+                                           id="btn-radio-green-update" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="btn-radio-green-update">GREEN</label>
+
+                                    <input type="radio" class="btn-check" value="YELLOW" name="boardColor1"
+                                           id="btn-radio-yellow-update" autocomplete="off">
+                                    <label class="btn btn-outline-warning" for="btn-radio-yellow-update">YELLOW</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="close-btn-boardDto-modal"
+                                data-bs-dismiss="modal">Close
+                        </button>
+                        <button type="button" class="btn btn-primary" id="save-btn-boardDto-title">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- update Board Modal -->
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/mustache.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/janl/mustache.js/master/mustache.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/trelloScript.js"></script>
+<!--<script type="text/javascript" src="/js/trello-board-detail.js"></script>-->
+</body>
+
+</html>
