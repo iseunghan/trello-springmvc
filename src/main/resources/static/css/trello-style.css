@@ -1,0 +1,209 @@
+.board-item {
+    margin: 5px;
+    padding: 35px 10px;
+    height: 100px;
+    border-radius: 5px;
+    transition: .3s linear all;
+    text-align: center;
+}
+
+.board-item.BLUE{
+    background-color: #007bff;
+    color: #FFF;
+}
+
+.board-item.RED{
+    background-color: #ef5350;
+    color: #FFF;
+}
+
+.board-item.GREEN{
+    background-color: #66bb6a;
+    color: #FFF;
+}
+
+.board-item.YELLOW{
+    background-color: orange;
+    color: #FFF;
+}
+
+.board-title{
+    position: absolute;
+    right: 105px;
+    top: 45px;
+    text-align: center;
+    font-style: italic;
+    text-transform: capitalize;
+    display: block;
+    font-size: 30px;
+}
+
+.trello-title-box{
+    box-shadow: 2px 2px 10px #DADADA;
+    margin: 5px;
+    padding: 20px 10px;
+    background-color: midnightblue;
+    width: 300px;
+    height: 100px;
+    border-radius: 40px;
+    white-space: normal;
+    transition: .3s linear all;
+}
+
+.trello-title-logo {
+    background-position: center;
+    position: absolute;
+    text-align: center;
+    white-space: normal;
+    font-size: 28px;
+    background-color: midnightblue;
+    color: #FFFFFF;
+}
+
+.btn-add-board {
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    background-color: #CBCBCB;
+    border-color: #CBCBCB;
+}
+.btn-add-board:hover {
+    color: #fff;
+    background-color: #DEDEDE;
+    border-color: #D2D2D2;
+}
+
+.add-board-text {
+    position: absolute;
+    margin-left: -70px;
+    text-align: center;
+    padding: 25px 0px;
+}
+
+#main-board-lists {
+    width: 100%;
+    max-width: 73vw;
+    overflow-x: auto;
+}
+
+.board-row  {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 73%;
+    height: 98%;
+    max-width: 100vw;
+    max-height: 90vh;
+    position: fixed;
+}
+
+.board-title-in-pocket {
+    color: #FFFFFF;
+    font-size: xx-large;
+    margin: 10px 0px 0px 20px;
+    display: inline-block;
+}
+
+.pocket-title {
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+}
+
+.pocket-title:hover {
+
+}
+
+.del-btn-pocket {
+    position: absolute;
+    margin-left: -15px;
+     box-sizing: content-box;
+     width: 1em;
+     height: 1em;
+     padding: .25em .25em;
+     color: #000;
+     background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+     border: 0;
+     border-radius: .25rem;
+     opacity: .5
+ }
+
+.del-btn-pocket:hover {
+    color: #000;
+    text-decoration: none;
+    opacity: .75
+}
+
+.del-btn-pocket:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+    opacity: 1
+}
+
+.div-card-item {
+    margin: 0 -10px 5px;
+}
+
+#card-list {
+    background-color: rgba(0, 0, 0, .03);
+}
+
+/* span 태그는 inline 요소라서 inline-block을 해준 뒤 높이를 설정할 수 있다. */
+.card-item {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #fff;
+    padding-left: 10px;
+    box-shadow: 2px 2px lightgrey;
+    cursor: pointer;
+}
+
+.card-item:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.btn-add-pocket {
+    color: #FFFFFF;
+    background-color: hsla(0, 0%, 100%, .24);
+    border-color: hsla(0, 0%, 100%, .24);;
+    border-radius: 3px;
+    width: 272px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.btn-add-pocket:hover {
+    background-color: hsla(0, 0%, 100%, .4);
+    border-color: hsla(0, 0%, 100%, .4);
+}
+
+.add-btn-card {
+    color: #ADADAD;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+
+}
+
+.add-btn-card:hover {
+    color: #A0A0A0;
+    background-color: #E7E7E7;
+}
+
+.bg-BLUE {
+    background-color: #007bff;
+}
+
+.bg-YELLOW {
+    background-color: #CA9F0E;
+}
+
+.bg-GREEN {
+    background-color: #308443;
+}
+
+.bg-RED {
+    background-color: #A73B3B;
+}
