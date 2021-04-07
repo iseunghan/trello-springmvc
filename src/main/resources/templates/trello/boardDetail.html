@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trello By iseunghan</title>
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/css/trello-style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5" style="margin-left: 10px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16" type="button" href="#" onclick="location.href='http://localhost:8080'" style="margin-top: -15px">
+                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+            </svg>
+            <span class="board-title-in-pocket" th:text="${boardTitle}">boardTitle</span>
+        </div>
+        <div class="col-md-4">
+            <svg style="margin-bottom: 10px" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                 fill="currentColor" class="bi bi-grid-1x2-fill" viewBox="0 0 16 16">
+                <path d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z"/>
+            </svg>
+            <span style="font-size: 32px">pockets</span>
+        </div>
+    </div>
+    <hr>
+    <div class="board-row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="pocket-list" th:boardid="${boardId}" th:bgcolor="${boardColor}">
+
+        <div class="col col-sm-2 col-md-3 g-3" id="div-add-btn-pocket">
+            <button class="btn-add-pocket" type="button" data-bs-toggle="modal" data-bs-target="#add-pocket-modal">+ Add a pocket</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add-Pocket-Modal -->
+<div class="modal fade" id="add-pocket-modal" tabindex="-1" aria-labelledby="addPocketModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPocketModalLabel">Add a Pocket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="aria-pocket-title">Pocket Title</span>
+                    <input type="text" class="form-control" placeholder="insert pocket title" aria-label="Pocket Title" aria-describedby="aria-pocket-title" id="input-pocket-title" autofocus>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-btn-pocket-title">Close</button>
+                <button type="button" class="btn btn-primary" id="add-btn-pocket-title">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update-Pocket-Modal -->
+<div class="modal fade" id="update-pocket-modal" tabindex="-1" aria-labelledby="update-Pocket-Modal-Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="update-Pocket-Modal-Label">Update Pocket Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="aria-update-pocket-title">Pocket Title</span>
+                    <input type="text" class="form-control" placeholder="insert pocket title" id="input-update-pocket-title" aria-label="Pocket Title" aria-describedby="aria-update-pocket-title">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-btn-pocketDto-title">Close</button>
+                <button type="button" class="btn btn-primary" id="update-btn-pocket-title">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add-Card-Modal -->
+<div class="modal fade" id="add-card-modal" tabindex="-1" aria-labelledby="add-card-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-card-modal-label">Add a card</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="aria-card-title">Card Title</span>
+                    <input type="text" class="form-control" placeholder="..insert card title" aria-label="Card Title" aria-describedby="aria-card-title" id="input-card-title" autofocus>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-btn-card-modal">Close</button>
+                <button type="button" class="btn btn-primary" id="add-btn-card-modal">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- show-card-detail-Modal -->
+<div class="modal fade" id="show-card-detail-modal" tabindex="-1" aria-labelledby="show-card-detail-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-xl-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="show-card-detail-modal-label">Card Detail</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="aria-card-title-detail">Title</span>
+                    <input type="text" class="form-control" placeholder="..insert card title" aria-label="Card Title" aria-describedby="aria-card-title-detail" id="input-card-title-detail" autofocus>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="aria-card-description-detail">Description</span>
+                    <input type="text" class="form-control" placeholder="..insert card description" aria-label="Card Description" aria-describedby="aria-card-description-detail" id="input-card-description-detail" autofocus>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-btn-card-detail-modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save-btn-card-detail-modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/mustache.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/janl/mustache.js/master/mustache.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/trello-board-detail.js"></script>
+</body>
+</html>
