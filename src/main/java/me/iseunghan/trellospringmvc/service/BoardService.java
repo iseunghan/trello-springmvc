@@ -17,6 +17,7 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+    private static int positionSequence = 0;
     /**
      * 보드를 추가하는 메소드
      * 현재 시간을 보드의 create,update로 설정해줍니다.
@@ -35,6 +36,7 @@ public class BoardService {
         board.setBoardColor(boardDto.getBoardColor());
         board.setCreatedAt(LocalDateTime.now());
         board.setUpdatedAt(board.getCreatedAt());
+        board.setPosition(positionSequence++);
         boardRepository.save(board);
         return board.getId();
     }

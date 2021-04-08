@@ -22,6 +22,7 @@ public class CardService {
     @Autowired
     private PocketRepository pocketRepository;
 
+    private static int positionSequence = 0;
     /**
      * 하나의 카드를 추가하는 메소드
      * @param pocketId
@@ -38,6 +39,7 @@ public class CardService {
         card.updatePocket(pocket);
         card.setCreatedAt(LocalDateTime.now());
         card.setUpdatedAt(card.getCreatedAt());
+        card.setPosition(positionSequence++);
         cardRepository.save(card);
         return card.getId();
     }
@@ -48,7 +50,7 @@ public class CardService {
      * @return List<Card>
      */
     public List<Card> findAll(Long pocketId) {
-        return cardRepository.findCardsByPocket_Id(pocketId);
+        return cardRepository.findCardsByPocket_IdOrderByPosition(pocketId);
     }
 
     /**
@@ -81,6 +83,13 @@ public class CardService {
             card.setDescription(cardDto.getDescription());
         }
         if (cardDto.getPosition() > 0) {
+            List<Card> cards = cardRepository.findCardsByPocket_IdOrderByPosition(cardDto.getPocketId());
+            cards.forEach(card1 -> {
+                if (card1.getPosition() >= cardDto.getPosition()) {
+                    card1.setPosition(card1.getPosition());
+                }
+            });
+            positionSequence++;
             card.setPosition(cardDto.getPosition());
         }
         if (cardDto.getPocketId() != null) {

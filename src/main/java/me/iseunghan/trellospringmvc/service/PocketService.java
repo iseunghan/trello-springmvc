@@ -26,6 +26,7 @@ public class PocketService {
     @Autowired
     private CardRepository cardRepository;
 
+    private static int positionSequence = 0;
     /**
      * 포켓을 추가하는 메소드
      * @param pocketDto
@@ -41,6 +42,7 @@ public class PocketService {
         pocket.setPosition(pocketDto.getPosition());
         pocket.setCreatedAt(LocalDateTime.now());
         pocket.setUpdatedAt(pocket.getCreatedAt());
+        pocket.setPosition(positionSequence++);
         pocket.updateBoard(board);
         pocketRepository.save(pocket);
         return pocket.getId();
@@ -51,7 +53,7 @@ public class PocketService {
      * @return List<Pocket>
      */
     public List<Pocket> findAll(Long boardId) {
-        return pocketRepository.findPocketsByBoard_Id(boardId);
+        return pocketRepository.findPocketsByBoard_idOrderByPosition(boardId);
     }
 
 
@@ -89,7 +91,21 @@ public class PocketService {
         }
 
         if (pocketDto.getPosition() > 0) {
-            pocket.setPosition(pocketDto.getPosition());
+            if (pocketDto.getPosition() == 10000) {
+                pocket.setPosition(positionSequence++);
+            }else {
+                // position에 담긴 값은 drop item의 pocketId이다.
+                Pocket pocket1 = pocketRepository.findById(Long.parseLong(String.valueOf(pocketDto.getPosition()))).get();
+                int position = pocket1.getPosition();
+                List<Pocket> pockets = pocketRepository.findPocketsByBoard_Id(pocketDto.getBoardId());
+                pockets.forEach(pocket2 -> {
+                    if (pocket2.getPosition() >= position) {
+                        pocket2.setPosition(pocket2.getPosition() + 1);
+                    }
+                });
+                positionSequence++;
+                pocket.setPosition(position);
+            }
         }
 
         pocket.setUpdatedAt(LocalDateTime.now());
