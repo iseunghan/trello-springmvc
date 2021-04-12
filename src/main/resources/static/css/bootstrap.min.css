@@ -4386,7 +4386,7 @@ textarea.form-control-lg {
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, .125);
+    border: 1px solid rgba(0, 0, 0, 0); /*.125*/
     border-radius: .25rem
 }
 
@@ -4446,7 +4446,7 @@ textarea.form-control-lg {
     padding: .5rem 1rem;
     margin-bottom: 0;
     background-color: rgba(0, 0, 0, .03);
-    border-bottom: 1px solid rgba(0, 0, 0, .125)
+    border-bottom: 1px solid rgba(0, 0, 0, 0) /*0.125*/
 }
 
 .card-header:first-child {
@@ -4456,7 +4456,7 @@ textarea.form-control-lg {
 .card-footer {
     padding: .5rem 1rem;
     background-color: rgba(0, 0, 0, .03);
-    border-top: 1px solid rgba(0, 0, 0, .125)
+    border-top: 1px solid rgba(0, 0, 0, 0) /*0.125*/
 }
 
 .card-footer:last-child {

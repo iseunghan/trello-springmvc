@@ -207,3 +207,12 @@
 .bg-RED {
     background-color: #A73B3B;
 }
+
+.pocket-item.placeholder{
+    opacity: .5;
+}
+
+.pocket-item {
+    width: 272px;
+    margin-right: 10px;
+}
