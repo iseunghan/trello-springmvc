@@ -21,7 +21,7 @@ public class Board {
     @Enumerated(EnumType.STRING)
     private BoardColor boardColor;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pocket> pockets = new ArrayList<>();
 
     public Long getId() {
