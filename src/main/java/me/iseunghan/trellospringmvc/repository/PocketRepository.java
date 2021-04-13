@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PocketRepository extends JpaRepository<Pocket, Long> {
     List<Pocket> findPocketsByBoard_Id(Long boardId);
+    List<Pocket> findPocketsByBoard_idOrderByPosition(Long boardId);
 }

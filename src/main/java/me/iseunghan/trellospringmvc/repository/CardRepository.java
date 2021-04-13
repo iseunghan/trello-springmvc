@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
     List<Card> findCardsByPocket_Id(Long pocketId);
+    List<Card> findCardsByPocket_IdOrderByPosition(Long pocketId);
 }
