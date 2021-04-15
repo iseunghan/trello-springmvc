@@ -1,7 +1,7 @@
 $(function (){
-    var $pocketLists = $('#pocket-lists');
-    var $boardId = $pocketLists.attr('boardid');
-    var $boardColor = $pocketLists.attr('bgcolor');
+    var $pocketList = $('#pocket-list');
+    var $boardId = $pocketList.attr('boardid');
+    var $boardColor = $pocketList.attr('bgcolor');
 
     var pocketTemplate = "" +
         "            <div class=\"pocket-item\" id='pocket-item-{{pocketId}}' draggable='true' ondragstart='ondragstart_handler(event)' ondragend='ondragend_handler(event)'>\n" +
@@ -95,7 +95,7 @@ $(function (){
     /**
      *  포켓 타이틀 수정
      */
-    $pocketLists.on('click', '.pocket-title', function () {
+    $pocketList.on('click', '.pocket-title', function () {
         var $title = $(this);
         var $id = $(this).attr('data-id');
         console.log('pocket-id : ' + $id + ' (수정 모드)');
@@ -148,7 +148,7 @@ $(function (){
     /**
      *  포켓 삭제 버튼
      */
-    $pocketLists.on('click', '.del-btn-pocket', function (e){
+    $pocketList.on('click', '.del-btn-pocket', function (e){
         console.log(e.target);
         var $pocketId = $(this).attr('data-id');
 
@@ -171,7 +171,7 @@ $(function (){
     /**
      *  카드 아이템 클릭 시 카드 상세 보기
      */
-    $pocketLists.on('click', '.card-item', function () {
+    $pocketList.on('click', '.card-item', function () {
         var $pocketId = $(this).parent().parent().parent().attr('id').substring(7, 8);
         console.log($pocketId);
         var $id = $(this).attr('data-id');
@@ -212,7 +212,7 @@ $(function (){
     /**
      *  카드 저장 버튼 클릭 시
      */
-    $pocketLists.on('click', '.add-btn-card', function (e) {
+    $pocketList.on('click', '.add-btn-card', function (e) {
         var $pocketId = $(this).attr('data-id');
         console.log($pocketId);
 
