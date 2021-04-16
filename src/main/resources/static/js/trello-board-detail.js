@@ -1,10 +1,159 @@
+/* start - 드래그 앤 드롭 */
+var draggable = null;
+var drag_X = 0;
+
+function ondragstart_handler(e){
+    drag_X = e.clientX;
+    if (e.target.id.substring(0, 4) === 'card') {
+        return;
+    }
+    $('#' + e.target.id).addClass('placeholder');
+    console.log('drag start');
+    draggable = e.target.id;
+    var item = e.dataTransfer.items;
+
+    if (item == undefined || item == null) {
+        console.log('drag item is undefined or null!');
+        return;
+    }
+    e.dataTransfer.setData('text/plain', e.target.id); /* dataTransfer는 ondrop에서 사용 가능 */
+}
+
+function ondragend_handler(e) {
+    $('#' + e.target.id).removeClass('placeholder');
+    console.log('drag end');
+}
+
+var $dropzone = null;
+function ondragover_handler(e) {
+    e.preventDefault();
+    if (draggable == e.target.id) {
+        return;
+    }
+    if (e.target.className === 'pocket-item') {
+        const parent = document.getElementById(e.target.id);
+        const child = document.getElementById(draggable);
+        $dropzone = e.target.id;
+        parent.after(child);
+    } else if (e.target.className === 'pocket-title') {
+        const id = e.target.id;
+        const parentId = id.replace('title', 'item');
+        const parent = document.getElementById(parentId);
+        const child = document.getElementById(draggable);
+        $dropzone = e.target.id;
+        parent.before(child);
+    }else if (e.target.className === 'btn-add-pocket') {
+        const parent = document.getElementById('div-add-btn-pocket');
+        const child = document.getElementById(draggable);
+        parent.before(child);
+    }
+}
+
+function getDragAfterElement(y) {
+    const draggableElements = [...document.querySelectorAll('.pocket-item:not(.placeholder)')];
+    // console.log('length: ' + draggableElements.length);
+    draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.left - box.width / 2;
+        console.log(offset);
+    });
+}
+
+function ondrop_handler(e) {
+    const id = e.dataTransfer.getData('text');
+    if (id.substring(0, 4) == 'card') {
+        return;
+    }
+    console.log('옮기려는 아이디: ' + id);
+    const draggable1 = document.getElementById(id);
+    const dropzone = e.target;
+    console.log('드롭할 곳: ' + dropzone.id);
+    console.log('진짜 드롭할 곳: ' + $dropzone);
+    const $boardId = $('#pocket-lists').attr('boardid');
+    const $pocketId = dropzone.id.toString().substring(13, 14);
+
+    /* dropzone이 버튼일 때 제일 마지막에 저장 */
+    if (dropzone.id === 'btn-add-pocket' || dropzone.id === 'div-add-btn-pocket') {
+        $.ajax({
+            type: 'PATCH',
+            url: 'http://localhost:8080/boards/' + $boardId + '/pockets/' + id.substring(12,13),
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({
+                boardId: $boardId,
+                position: 10000
+            }),
+            success: function () {
+                console.log('drop : success');
+            }
+        });
+    } else {
+        console.log('boardID : ' + $boardId);
+        console.log(id + '에서 -> ' + $pocketId + '로 위치를 옮깁니다.');
+        $.ajax({
+            type: 'PATCH',
+            url: 'http://localhost:8080/boards/' + $boardId + '/pockets/' + id.substring(12,13),
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({
+                boardId : $boardId,
+                position : $pocketId,
+            }),
+
+            success: function (result) {
+                console.log('drop success');
+            }
+        });
+    }
+    e.dataTransfer.clearData();
+}
+
+var draggable_card = null;
+function card_ondragstart(e) {
+    console.log('카드를 드래그했습니다! : ' + e.target);
+    var item = e.dataTransfer.items;
+
+    if (item == undefined || item == null) {
+        return;
+    }
+    e.dataTransfer.setData('text/plain', e.target.id);
+    draggable_card = e.target.id;
+}
+
+function card_dragend(e) {
+    $('#' + e.target.id).removeClass('placeholder');
+    console.log('drag end');
+}
+
+function card_ondragover(e) {
+    if (e.target.id == '') {
+        return ;
+    }
+    e.preventDefault();
+    const parent = document.getElementById(e.target.id);
+    const child = document.getElementById(draggable_card);
+    console.log('parent : ' + parent);
+    console.log('child : ' + child);
+
+    parent.appendChild(child);
+}
+
+function card_ondrop(e) {
+    const id = e.dataTransfer.getData('text');
+    console.log('ondrop!: ' + id);
+    if (id.substring(0, 9) == 'card-item') {
+        console.log('great!');
+    }
+}
+/* end - 드래그 앤 드롭*/
+
 $(function (){
     var $pocketList = $('#pocket-list');
     var $boardId = $pocketList.attr('boardid');
     var $boardColor = $pocketList.attr('bgcolor');
 
     var pocketTemplate = "" +
-        "            <div class=\"pocket-item\" id='pocket-item-{{pocketId}}' draggable='true' ondragstart='ondragstart_handler(event)' ondragend='ondragend_handler(event)'>\n" +
+        "            <div class=\"pocket-item\" id='pocket-item-{{pocketId}}' draggable='true' ondragstart='ondragstart_handler(event)' ondragend='ondragend_handler(event)' ondragover='ondragover_handler(event)' ondrop='ondrop_handler(event)'>\n" +
         "               <div class=\"card\">\n" +
         "                   <div class=\"card-header\">\n" +
         "                       <span class=\"pocket-title\" id='pocket-title-{{pocketId}}' data-id=\"{{pocketId}}\" type=\"button\">{{title}}</span>\n" +
@@ -25,7 +174,7 @@ $(function (){
         "";
 
     var cardTemplate = "" +
-        "            <div class=\"col\" id=\"card-item-{{cardId}}\" draggable='true' ondragstart='card_ondragstart(event)'>\n" +
+        "            <div class=\"col\" id=\"card-item-{{cardId}}\" draggable='true' ondragstart='card_ondragstart(event)' ondragend='card_ondragend(event)'>\n" +
         "                <div class=\"card div-card-item\">\n" +
         "                   <span class=\"card-item\" data-id=\"{{cardId}}\" data-bs-toggle=\"modal\" data-bs-target=\"#show-card-detail-modal\">{{title}}</span>"  +
         "               </div>" +
