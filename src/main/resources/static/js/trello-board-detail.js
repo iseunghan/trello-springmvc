@@ -69,7 +69,7 @@ function ondrop_handler(e) {
     const dropzone = e.target;
     console.log('드롭할 곳: ' + dropzone.id);
     console.log('진짜 드롭할 곳: ' + $dropzone);
-    const $boardId = $('#pocket-lists').attr('boardid');
+    const $boardId = $('#pocket-list').attr('boardid');
     const $pocketId = dropzone.id.toString().substring(13, 14);
 
     /* dropzone이 버튼일 때 제일 마지막에 저장 */
@@ -308,7 +308,7 @@ $(function (){
             success: function (result) {
                 if(result) {
                     // alert('삭제가 완료되었습니다.');
-                    $('#pocket-' + $pocketId).remove();
+                    $('#pocket-item-' + $pocketId).remove();
                 }
             },
             fail: function () {
