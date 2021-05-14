@@ -28,17 +28,17 @@ public class BoardResource extends RepresentationModel {
 
     }
 
-    public BoardResource(BoardDto boardDto) {
-        super.add(linkTo(BoardController.class).slash(boardDto.getBoardId()).withSelfRel());
+    public BoardResource(BoardDto boardDto, Long userId) {
+        super.add(linkTo(BoardController.class, userId).slash(boardDto.getBoardId()).withSelfRel());
         this.boardDto = boardDto;
     }
 
-    public BoardResource toModel(Board board) {
+    public BoardResource toModel(Board board, Long userId) {
         BoardDto boardDto = modelMapper.map(board, BoardDto.class);
-        return new BoardResource(boardDto);
+        return new BoardResource(boardDto, userId);
     }
 
-    public CollectionModel<BoardResource> toCollectionModel(List<Board> boards) {
+    public CollectionModel<BoardResource> toCollectionModel(List<Board> boards, Long userId) {
         List<BoardResource> boardResources = new ArrayList<>();
         List<BoardDto> boardDtoList = boards
                 .stream()
@@ -46,10 +46,10 @@ public class BoardResource extends RepresentationModel {
                 .collect(Collectors.toList());
         boardDtoList
                 .stream()
-                .forEach(b -> boardResources.add(new BoardResource(b)));
+                .forEach(b -> boardResources.add(new BoardResource(b, userId)));
 
         CollectionModel<BoardResource> collectionModel = CollectionModel.of(boardResources);
-        Link link = linkTo(BoardController.class).withSelfRel();
+        Link link = linkTo(BoardController.class, userId).withSelfRel();
         collectionModel.add(link);
         return collectionModel;
     }

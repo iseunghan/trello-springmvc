@@ -3,7 +3,9 @@ package me.iseunghan.trellospringmvc.service;
 import javassist.NotFoundException;
 import me.iseunghan.trellospringmvc.domain.Board;
 import me.iseunghan.trellospringmvc.domain.BoardDto;
+import me.iseunghan.trellospringmvc.domain.User;
 import me.iseunghan.trellospringmvc.repository.BoardRepository;
+import me.iseunghan.trellospringmvc.repository.UserRepository;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     private static int positionSequence = 0;
     /**
@@ -24,7 +28,8 @@ public class BoardService {
      * <p>
      * return 보드의 아이디 값을 넘겨줍니다.
      */
-    public Long addBoard(BoardDto boardDto) {
+    public Long addBoard(BoardDto boardDto, Long userId) {
+        User user = userRepository.findById(userId).get();
         if (Strings.isBlank(boardDto.getTitle())) {
             throw new IllegalStateException("공백을 입력할 수 없습니다.");
         }
@@ -32,6 +37,7 @@ public class BoardService {
             throw new IllegalStateException("보드 배경을 선택하세요.");
         }
         Board board = new Board();
+        board.setUser(user);
         board.setTitle(boardDto.getTitle());
         board.setBoardColor(boardDto.getBoardColor());
         board.setCreatedAt(LocalDateTime.now());
@@ -44,8 +50,8 @@ public class BoardService {
     /**
      * 전체 보드를 조회하는 메소드
      */
-    public List<Board> findAll() {
-        return boardRepository.findAll();
+    public List<Board> findAll(Long userId) {
+        return boardRepository.findByUserId(userId);
     }
 
     /**

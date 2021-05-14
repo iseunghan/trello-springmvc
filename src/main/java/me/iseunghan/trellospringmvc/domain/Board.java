@@ -20,9 +20,20 @@ public class Board {
     private LocalDateTime updatedAt;
     @Enumerated(EnumType.STRING)
     private BoardColor boardColor;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pocket> pockets = new ArrayList<>();
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
