@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +12,21 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <img src="/img/trello-logo.jpg" class="rounded mx-auto d-block"
-             style="height: 160px; width: 174px; margin-top: 40px">
+             style="height: 160px; width: 185px; margin-top: 40px">
+    </div>
+    <div class="row justify-content-end" id="profile" th:userid="${userid}">
+        <div class="col-md-1">
+            <img class="profile-img" style="width: 80px;height: 80px" th:src="${image}">
+        </div>
+        <div class="col-md-auto" style="padding: 0px">
+            <h3 class="profile-name" th:text="${name}">name</h3>
+        </div>
+        <div class="col-md-auto" style="margin-top: 5px; padding: 0px">
+            <span>님 안녕하세요.</span>
+        </div>
+        <div class="col-md-auto">
+            <button class="btn btn-danger" onclick="location.href='/logout'">로그아웃</button>
+        </div>
     </div>
 
     <br>

@@ -27,6 +27,8 @@
 
 $(function () {
     var $boardList = $('#main-board-lists');
+    var $userid = document.getElementById('profile').getAttribute('userid');
+    console.log('현재 user의 id는 ' + $userid + ' 입니다.');
 
     var boardTemplate = "" +
         "            <div class=\"col-md-3\" id='board-list-{{boardId}}' style='margin-right: 20px'>\n" +
@@ -52,7 +54,7 @@ $(function () {
      * 페이지 로드 시 화면에 보드 리스트를 뿌려줌.
      */
     $.ajax({
-        url: 'http://localhost:8080/boards',
+        url: 'http://localhost:8080/user/' + $userid + '/boards',
         type: 'GET',
 
         success: function (result) {
@@ -75,7 +77,7 @@ $(function () {
         console.log($title);
         if(validateInput($title)) {
             $.ajax({
-                url: 'http://localhost:8080/boards',
+                url: 'http://localhost:8080/user/' + $userid + '/boards',
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -113,7 +115,7 @@ $(function () {
         $('#save-btn-boardDto-title').unbind('click').bind('click', function (e1) {
             if (validateInput($('#input-boardDto-title').val())) {
                 $.ajax({
-                    url: 'http://localhost:8080/boards/' + $id,
+                    url: 'http://localhost:8080/user/' + $userid + '/boards/' + $id,
                     type: 'PATCH',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -143,7 +145,7 @@ $(function () {
         var $deleteOne = $('#main-board-lists').find($find);
 
         $.ajax({
-            url: 'http://localhost:8080/boards/' + $id,
+            url: 'http://localhost:8080/user/' + $userid + '/boards/' + $id,
             type: 'DELETE',
 
             success: function (result) {
