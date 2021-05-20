@@ -4,7 +4,8 @@
 # 실행화면
 
 ---
-- 메인화면
+- 소셜 로그인 페이지
+- 메인 화면(로그인 완료 시)
 - 보드 추가 모달 창
 - 보드가 추가된 메인화면
 - 보드 상세보기 화면 
@@ -15,10 +16,17 @@
     - 카드 상세보기 모달 창 
 - 드래그 앤 드롭
 
-### 메인화면
+### 소셜 로그인 페이지
 
 ---
-![보드화면](src/main/resources/static/img/main_page.png)
+![보드화면](src/main/resources/static/img/login-page.png)
+- OAuth2 인증을 이용해서 Google, Naver, Kakao 소셜 로그인 기능을 구현했습니다.
+
+### 메인 화면(로그인 완료 시)
+
+---
+![보드화면](src/main/resources/static/img/login-success-main.png)
+- 로그인을 완료 시, 해당 유저의 board를 보여줍니다. 
 
 ### 보드 추가 모달 창
 
@@ -30,7 +38,7 @@
 
 ---
 * `수정` 버튼을 클릭하여 보드의 타이틀, 색상을 변경할 수 있고, `삭제` 버튼으로 삭제할 수 있습니다.
-![보드 추가된 메인화면](src/main/resources/static/img/main_page_with_boards.png)
+![보드 추가된 메인화면](src/main/resources/static/img/main-boards.png)
   
 ### 보드 상세보기 화면
 
@@ -66,4 +74,4 @@
 
 ---
 * 포켓과 카드를 `드래그 앤 드롭`하여 위치를 옮길 수 있습니다.
-![트개르 앤 드롭 기능](src/main/resources/static/img/drag_and_drop.png)
+![드래그 앤 드롭](src/main/resources/static/img/drag-and-drop.png)
