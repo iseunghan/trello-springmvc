@@ -41,7 +41,6 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity addBoard(@PathVariable Long userId, @RequestBody BoardDto boardDto) throws NotFoundException {
-        System.out.println("UserId: " + userId + ", " + boardDto.getBoardColor() + ", " + boardDto.getTitle());
         Long id = boardService.addBoard(boardDto, userId);
         Board board = boardService.findOne(id);
         BoardResource resource = boardResource.toModel(board, userId);
@@ -51,7 +50,6 @@ public class BoardController {
 
     @PatchMapping(value = "/{boardId}")
     public ResponseEntity update(@PathVariable Long userId, @PathVariable Long boardId, @RequestBody BoardDto boardDto) throws NotFoundException {
-        System.out.println(boardDto.getTitle() + " , " + boardDto.getBoardColor());
         Board board = boardService.updateBoard(boardId, boardDto);
         BoardResource resource = boardResource.toModel(board, userId);
         return ResponseEntity.ok(resource);
